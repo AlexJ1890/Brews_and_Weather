@@ -85,7 +85,7 @@ function searchApi(searchInputVal) {
           console.log(weatherData);
           console.log("City:", weatherData.city.name);
           console.log("Temperature:", weatherData.list[0].main.temp);
-          
+
           // Functions called to display the current weather.
           printResults(weatherData);
         });
@@ -149,18 +149,22 @@ function brewResults(breweryInfo) {
   // Pulling variables for 10 brewries with a for-loop.
   for (var i = 1; i < Math.min(100, breweryInfo.length); i++) {
     var card = document.createElement("div");
-    card.classList.add("card", "p-2");
-
+    card.classList.add(
+      "p-6",
+      "w-2/6",
+      "rounded",
+      "overflow-hidden",
+      "shadow-lg"
+    );
     // Variables displaying in the days from the API.
     var name = breweryInfo[i].name;
     var address = breweryInfo[i].address_1;
     var phoneNum = breweryInfo[i].phone;
     var website = breweryInfo[i].website_url;
 
-
     // Organizing card content.
     var cardContent = `
-                <h5 class="card-title"><a href="${website}"> ${name}</a></h5>
+                <h5 class="card-title font-bold text-xl mb-2"><a href="${website}"> ${name}</a></h5>
                 <p class="card-text">Address: ${address} </p>
                 <p class="card-text">Phone Number: ${phoneNum}</p>
             `;
