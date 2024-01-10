@@ -156,7 +156,6 @@ function brewResults(breweryInfo) {
       "overflow-hidden",
       "shadow-lg"
     );
-
     // Variables displaying in the days from the API.
     var name = breweryInfo[i].name;
     var address = breweryInfo[i].address_1;
