@@ -160,10 +160,9 @@ function brewResults(breweryInfo) {
 
     // Organizing card content.
     var cardContent = `
-                <h5 class="card-title">${name}</h5>
+                <h5 class="card-title"><a href="${website}"> ${name}</a></h5>
                 <p class="card-text">Address: ${address} </p>
                 <p class="card-text">Phone Number: ${phoneNum}</p>
-                <p class="card-text"> ${website}</p>
             `;
     // Appeniding information to list ten local brewries.
     card.innerHTML = cardContent;
