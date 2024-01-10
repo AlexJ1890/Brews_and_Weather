@@ -149,7 +149,7 @@ function brewResults(breweryInfo) {
   // Pulling variables for 10 brewries with a for-loop.
   for (var i = 1; i < Math.min(100, breweryInfo.length); i++) {
     var card = document.createElement("div");
-    card.classList.add("card", "p-2");
+    card.classList.add("card", "p-2", "flex-auto");
 
     // Variables displaying in the days from the API.
     var name = breweryInfo[i].name;
