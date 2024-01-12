@@ -109,10 +109,17 @@ function printResults(weatherData) {
 
   // Creating an element to display information.
   var card = document.createElement("div");
-  card.classList.add("card", "p-2");
+  card.classList.add(
+    "card",
+    "p-4",
+    "rounded",
+    "overflow-hidden",
+    "shadow-lg",
+    "w-1/2"
+    );
   // Organizing the card content with a variable.
   var cardContent = `
-                <h2 class="card-title">${name}</h2>
+                <h2 class="card-title text-left">${name}</h2>
                 <img class="weatherIcon" src="${iconUrl}" alt="Weather Icon" />
                 <p class="card-text">Temp: ${temp} F</p>
                 <p class="card-text">Humidity: ${humidity}%</p>
@@ -159,6 +166,8 @@ function brewResults(breweryInfo) {
     // Variables displaying in the days from the API.
     var name = breweryInfo[i].name;
     var address = breweryInfo[i].address_1;
+    var citytag = breweryInfo[i].city;
+    var state = breweryInfo[i].state;
     var phoneNum = breweryInfo[i].phone;
     var website = breweryInfo[i].website_url;
 
@@ -166,6 +175,8 @@ function brewResults(breweryInfo) {
     var cardContent = `
                 <h5 class="card-title font-bold text-xl mb-2"><a href="${website}"> ${name}</a></h5>
                 <p class="card-text">Address: ${address} </p>
+                <p class="card-text">City: ${citytag}</p>
+                <p class="card-text">State: ${state}</p>
                 <p class="card-text">Phone Number: ${phoneNum}</p>
             `;
     // Appeniding information to list ten local brewries.
