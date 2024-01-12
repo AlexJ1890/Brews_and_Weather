@@ -6,25 +6,20 @@ function btn(event) {
   event.preventDefault();
 
   var searchInputVal = document.querySelector("#myInput").value;
-  var state = document.querySelector('#state').value;
 
   console.log(searchInputVal);
-  console.log(state);
-  // console.log(state);
   // Unrecognizable input will alert user to try again.
-  if (!searchInputVal || !state) {
+  if (!searchInputVal) {
     alert("Unrecognizable Input");
     console.error("You need a search input value!");
     return;
   }
-  var cityState = searchInputVal + ", " + state;
-  console.log(cityState);
   // Search city will be stored in the Local Storage to be displayed as a search history.
-  localStorage.setItem("cityState", cityState);
+  localStorage.setItem("searchInputVal", searchInputVal);
 
-  var previousInputs = JSON.parse(localStorage.getItem("cityState")) || [];
+  var previousInputs = JSON.parse(localStorage.getItem("searchInputs")) || [];
 
-  previousInputs.push(cityState);
+  previousInputs.push(searchInputVal);
 
   localStorage.setItem("searchInputs", JSON.stringify(previousInputs));
 
@@ -36,93 +31,10 @@ function btn(event) {
   //   loadSearchHistory();
   searchApi(searchInputVal);
   brewList(searchInputVal);
-  getStateCode(state);
 }
-
-// function getStateCode(state) {
-  var usStates = [
-    { name: 'ALABAMA', abbreviation: 'AL'},
-    { name: 'ALASKA', abbreviation: 'AK'},
-    { name: 'ARIZONA', abbreviation: 'AZ'},
-    { name: 'ARKANSAS', abbreviation: 'AR'},
-    { name: 'CALIFORNIA', abbreviation: 'CA'},
-    { name: 'COLORADO', abbreviation: 'CO'},
-    { name: 'CONNECTICUT', abbreviation: 'CT'},
-    { name: 'DELAWARE', abbreviation: 'DE'},
-    { name: 'FLORIDA', abbreviation: 'FL'},
-    { name: 'GEORGIA', abbreviation: 'GA'},
-    { name: 'GUAM', abbreviation: 'GU'},
-    { name: 'HAWAII', abbreviation: 'HI'},
-    { name: 'IDAHO', abbreviation: 'ID'},
-    { name: 'ILLINOIS', abbreviation: 'IL'},
-    { name: 'INDIANA', abbreviation: 'IN'},
-    { name: 'IOWA', abbreviation: 'IA'},
-    { name: 'KANSAS', abbreviation: 'KS'},
-    { name: 'KENTUCKY', abbreviation: 'KY'},
-    { name: 'LOUISIANA', abbreviation: 'LA'},
-    { name: 'MAINE', abbreviation: 'ME'},
-    { name: 'MARYLAND', abbreviation: 'MD'},
-    { name: 'MASSACHUSETTS', abbreviation: 'MA'},
-    { name: 'MICHIGAN', abbreviation: 'MI'},
-    { name: 'MINNESOTA', abbreviation: 'MN'},
-    { name: 'MISSISSIPPI', abbreviation: 'MS'},
-    { name: 'MISSOURI', abbreviation: 'MO'},
-    { name: 'MONTANA', abbreviation: 'MT'},
-    { name: 'NEBRASKA', abbreviation: 'NE'},
-    { name: 'NEVADA', abbreviation: 'NV'},
-    { name: 'NEW HAMPSHIRE', abbreviation: 'NH'},
-    { name: 'NEW JERSEY', abbreviation: 'NJ'},
-    { name: 'NEW MEXICO', abbreviation: 'NM'},
-    { name: 'NEW YORK', abbreviation: 'NY'},
-    { name: 'NORTH CAROLINA', abbreviation: 'NC'},
-    { name: 'NORTH DAKOTA', abbreviation: 'ND'},
-    { name: 'OHIO', abbreviation: 'OH'},
-    { name: 'OKLAHOMA', abbreviation: 'OK'},
-    { name: 'OREGON', abbreviation: 'OR'},
-    { name: 'PENNSYLVANIA', abbreviation: 'PA'},
-    { name: 'PUERTO RICO', abbreviation: 'PR'},
-    { name: 'RHODE ISLAND', abbreviation: 'RI'},
-    { name: 'SOUTH CAROLINA', abbreviation: 'SC'},
-    { name: 'SOUTH DAKOTA', abbreviation: 'SD'},
-    { name: 'TENNESSEE', abbreviation: 'TN'},
-    { name: 'TEXAS', abbreviation: 'TX'},
-    { name: 'UTAH', abbreviation: 'UT'},
-    { name: 'VERMONT', abbreviation: 'VT'},
-    { name: 'VIRGINIA', abbreviation: 'VA'},
-    { name: 'WASHINGTON', abbreviation: 'WA'},
-    { name: 'WEST VIRGINIA', abbreviation: 'WV'},
-    { name: 'WISCONSIN', abbreviation: 'WI'},
-    { name: 'WYOMING', abbreviation: 'WY' }
-];
-  
-    
-    
-//   };
-
-//   const uppercaseStateName = usState.name.toUpperCase();
-
-  
-// var stateCode = getStateCode(uppercaseStateNamestate);
-
-// var stateSelect = document.getElementById('state');
-
-for(var i = 0; i < usStates.length; i++) {
-    var option = document.createElement("option");
-    option.classList.add(
-      "option");
-    option.text = usStates[i].name;
-    option.value = usStates[i].abbreviation;
-    stateSelect.add(option);
-}
-
-// if (stateCode !== null) {
-//   console.log('State Code:', stateCode);
-// } else {
-//   console.log('Unable to find state code for', state);
-// }
 
 // Search API with value to find Lat/Lon then finding correspinging weather
-function searchApi(searchInputVal, state) {
+function searchApi(searchInputVal) {
   var geoURL = "https://api.openweathermap.org/geo/1.0/direct";
 
   geoURL =
@@ -173,7 +85,6 @@ function searchApi(searchInputVal, state) {
           console.log(weatherData);
           console.log("City:", weatherData.city.name);
           console.log("Temperature:", weatherData.list[0].main.temp);
-          console.log('State:', locRes[0].state)
 
           // Functions called to display the current weather.
           printResults(weatherData,locRes);
