@@ -1,154 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.min.css"
-    />
-  </head>
-  <body>
-    <h1 class="text-3xl font-bold underline bg-green-500">Hello world!</h1>
-    <div class="vh">
-      <label
-        for="price"
-        class="block text-sm font-medium leading-6 text-gray-900"
-        >Search a city!</label
-      >
-      <div class="relative mt-2 rounded-md shadow-sm">
-        <input
-          type="text"
-          name="price"
-          id="myInput"
-          class="block rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          placeholder="City Name"
-        />
-        <div class="absolute inset-y-0 right-0 flex items-center">
-          <label for="currency" class="sr-only">Currency</label>
-          <button
-            id="searchBtn"
-            name="currency"
-            class="btn h-full rounded-md border-0 bg-gray-300 py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          ></button>
-        </div>
-      </div>
-    </div>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.min.css" />
+</head>
+
+<body>
+  <h1 class="text-3xl font-bold underline bg-green-500 p-3">Hello world!</h1>
+
+  <form class="flex flex-col md:flex-row gap-3 p-3">
+    <div class="flex">
+      <input type="text" placeholder="Search a city..."
+        class="w-full md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500">
+      <button type="submit"
+        class="bg-blue-500 hover:bg-blue-800 text-white rounded-r px-2 md:px-3 py-0 md:py-1">Search</button>
+    </div>
+    <select id="pricingType" name="pricingType"
+      class="w-full h-10 border-2 border-sky-500 focus:outline-none focus:border-sky-500 text-sky-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider"></select>
+    <option value="All" selected="">All States</option>
+    <option id="stateLoopList" value="stateList"></option>
+    <option id="State1">State 1</option>
+    </select>
+  </form>
+
+  <div class="card">
+    <div>
+      <h2 class="weatherHeader">Current Weather</h2>
+      <div class="currentContainer p-4 text-center"></div>
+    </div>
     <div class="card">
       <div>
-        <h2 class="weatherHeader">Current Weather</h2>
-        <div class="currentContainer p-4 text-center"></div>
+        <h2 class="beerHeader ">Local Spots</h2>
+        <div class="brewContainer flex flex-wrap p-4 column-3"></div>
       </div>
-      <div class="card">
-        <div>
-          <h2 class="beerHeader ">Local Spots</h2>
-          <div class="brewContainer flex flex-wrap p-4 column-3"></div>
+    </div>
+  </div>
+
+  <!-- Modal toggle -->
+  <button
+    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    type="button" data-modal-toggle="default-modal">
+    Toggle modal
+  </button>
+  <!-- Main modal -->
+  <div id="default-modal" aria-hidden="true"
+    class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
+    <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+      <!-- Modal content -->
+      <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-gray-900 text-xl lg:text-2xl font-semibold dark:text-white">
+            Terms of Service
+          </h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-toggle="default-modal">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-6 space-y-6">
+          <p class="text-gray-500 text-base leading-relaxed dark:text-gray-400">
+            With less than a month to go before the European Union enacts new
+            consumer privacy laws for its citizens, companies around the world
+            are updating their terms of service agreements to comply.
+          </p>
+          <p class="text-gray-500 text-base leading-relaxed dark:text-gray-400">
+            The European Union's General Data Protection Regulation (G.D.P.R.)
+            goes into effect on May 25 and is meant to ensure a common set of
+            data rights in the European Union. It requires organizations to
+            notify users as soon as possible of high-risk data breaches that
+            could personally affect them.
+          </p>
+        </div>
+        <!-- Modal footer -->
+        <div class="flex space-x-2 items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button data-modal-toggle="default-modal" type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            I accept
+          </button>
+          <button data-modal-toggle="default-modal" type="button"
+            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">
+            Decline
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Modal toggle -->
-    <button
-      class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      type="button"
-      data-modal-toggle="default-modal"
-    >
-      Toggle modal
-    </button>
-    <!-- Main modal -->
-    <div
-      id="default-modal"
-      aria-hidden="true"
-      class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center"
-    >
-      <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
-        <!-- Modal content -->
-        <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
-          <!-- Modal header -->
-          <div
-            class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-600"
-          >
-            <h3
-              class="text-gray-900 text-xl lg:text-2xl font-semibold dark:text-white"
-            >
-              Terms of Service
-            </h3>
-            <button
-              type="button"
-              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="default-modal"
-            >
-              <svg
-                class="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </button>
-          </div>
-          <!-- Modal body -->
-          <div class="p-6 space-y-6">
-            <p
-              class="text-gray-500 text-base leading-relaxed dark:text-gray-400"
-            >
-              With less than a month to go before the European Union enacts new
-              consumer privacy laws for its citizens, companies around the world
-              are updating their terms of service agreements to comply.
-            </p>
-            <p
-              class="text-gray-500 text-base leading-relaxed dark:text-gray-400"
-            >
-              The European Union's General Data Protection Regulation (G.D.P.R.)
-              goes into effect on May 25 and is meant to ensure a common set of
-              data rights in the European Union. It requires organizations to
-              notify users as soon as possible of high-risk data breaches that
-              could personally affect them.
-            </p>
-          </div>
-          <!-- Modal footer -->
-          <div
-            class="flex space-x-2 items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-600"
-          >
-            <button
-              data-modal-toggle="default-modal"
-              type="button"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              I accept
-            </button>
-            <button
-              data-modal-toggle="default-modal"
-              type="button"
-              class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
-            >
-              Decline
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- Flowbite JavaScript file -->
+  <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
+  <script src="./assets/script.js"></script>
+  <!-- Your own JavaScript to toggle the modal -->
+  <script>
+    function toggleModal() {
+      var modal = document.getElementById("default-modal");
+      modal.classList.toggle("hidden");
+    }
 
-    <!-- Flowbite JavaScript file -->
-    <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
-    <script src="./assets/script.js"></script>
-    <!-- Your own JavaScript to toggle the modal -->
-    <script>
-      function toggleModal() {
-        var modal = document.getElementById("default-modal");
-        modal.classList.toggle("hidden");
-      }
+    // Ensure Flowbite modal functionality
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   new bootstrap.Modal(document.getElementById('default-modal'));
+    // });
+  </script>
+</body>
 
-      // Ensure Flowbite modal functionality
-      // document.addEventListener('DOMContentLoaded', function () {
-      //   new bootstrap.Modal(document.getElementById('default-modal'));
-      // });
-    </script>
-  </body>
 </html>
