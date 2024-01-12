@@ -1,19 +1,82 @@
 var searchEl = document.querySelector(".btn");
-
+var select = document.getElementById("state");
 searchEl.addEventListener("click", btn);
+var usStates = [
+  { name: 'ALABAMA', abbreviation: 'AL'},
+  { name: 'ALASKA', abbreviation: 'AK'},
+  { name: 'ARIZONA', abbreviation: 'AZ'},
+  { name: 'ARKANSAS', abbreviation: 'AR'},
+  { name: 'CALIFORNIA', abbreviation: 'CA'},
+  { name: 'COLORADO', abbreviation: 'CO'},
+  { name: 'CONNECTICUT', abbreviation: 'CT'},
+  { name: 'DELAWARE', abbreviation: 'DE'},
+  { name: 'DISTRICT OF COLUMBIA', abbreviation: 'DC'},
+  { name: 'FLORIDA', abbreviation: 'FL'},
+  { name: 'GEORGIA', abbreviation: 'GA'},
+  { name: 'HAWAII', abbreviation: 'HI'},
+  { name: 'IDAHO', abbreviation: 'ID'},
+  { name: 'ILLINOIS', abbreviation: 'IL'},
+  { name: 'INDIANA', abbreviation: 'IN'},
+  { name: 'IOWA', abbreviation: 'IA'},
+  { name: 'KANSAS', abbreviation: 'KS'},
+  { name: 'KENTUCKY', abbreviation: 'KY'},
+  { name: 'LOUISIANA', abbreviation: 'LA'},
+  { name: 'MAINE', abbreviation: 'ME'},
+  { name: 'MARYLAND', abbreviation: 'MD'},
+  { name: 'MASSACHUSETTS', abbreviation: 'MA'},
+  { name: 'MICHIGAN', abbreviation: 'MI'},
+  { name: 'MINNESOTA', abbreviation: 'MN'},
+  { name: 'MISSISSIPPI', abbreviation: 'MS'},
+  { name: 'MISSOURI', abbreviation: 'MO'},
+  { name: 'MONTANA', abbreviation: 'MT'},
+  { name: 'NEBRASKA', abbreviation: 'NE'},
+  { name: 'NEVADA', abbreviation: 'NV'},
+  { name: 'NEW HAMPSHIRE', abbreviation: 'NH'},
+  { name: 'NEW JERSEY', abbreviation: 'NJ'},
+  { name: 'NEW MEXICO', abbreviation: 'NM'},
+  { name: 'NEW YORK', abbreviation: 'NY'},
+  { name: 'NORTH CAROLINA', abbreviation: 'NC'},
+  { name: 'NORTH DAKOTA', abbreviation: 'ND'},
+  { name: 'OHIO', abbreviation: 'OH'},
+  { name: 'OKLAHOMA', abbreviation: 'OK'},
+  { name: 'OREGON', abbreviation: 'OR'},
+  { name: 'PENNSYLVANIA', abbreviation: 'PA'},
+  { name: 'RHODE ISLAND', abbreviation: 'RI'},
+  { name: 'SOUTH CAROLINA', abbreviation: 'SC'},
+  { name: 'SOUTH DAKOTA', abbreviation: 'SD'},
+  { name: 'TENNESSEE', abbreviation: 'TN'},
+  { name: 'TEXAS', abbreviation: 'TX'},
+  { name: 'UTAH', abbreviation: 'UT'},
+  { name: 'VERMONT', abbreviation: 'VT'},
+  { name: 'VIRGINIA', abbreviation: 'VA'},
+  { name: 'WASHINGTON', abbreviation: 'WA'},
+  { name: 'WEST VIRGINIA', abbreviation: 'WV'},
+  { name: 'WISCONSIN', abbreviation: 'WI'},
+  { name: 'WYOMING', abbreviation: 'WY' }
+];
+
+
+for(var i = 0;i<usStates.length;i++){
+var option = document.createElement("option");
+option.text = usStates[i].name+' ['+usStates[i].abbreviation+']';
+option.value = usStates[i].abbreviation;
+
+select.appendChild(option);
+}
 
 function btn(event) {
   event.preventDefault();
 
   var searchInputVal = document.querySelector("#myInput").value;
 
-  console.log(searchInputVal);
+  console.log(searchInputVal, select.value);
   // Unrecognizable input will alert user to try again.
   if (!searchInputVal) {
     alert("Unrecognizable Input");
     console.error("You need a search input value!");
     return;
   }
+  
   // Search city will be stored in the Local Storage to be displayed as a search history.
   localStorage.setItem("searchInputVal", searchInputVal);
 
@@ -29,19 +92,19 @@ function btn(event) {
 
   // Runs the function to load the Search History when the page loads so the user can click one instead of typing.
   //   loadSearchHistory();
-  searchApi(searchInputVal);
+  searchApi(searchInputVal, select.value);
   brewList(searchInputVal);
 }
 
 // Search API with value to find Lat/Lon then finding correspinging weather
-function searchApi(searchInputVal) {
+function searchApi(searchInputVal, stateCode) {
   var geoURL = "https://api.openweathermap.org/geo/1.0/direct";
 
   geoURL =
     geoURL +
     "?q=" +
-    searchInputVal +
-    "&limit=1&appid=e54dee0cc53d0b5d7fada68322d11e01";
+    searchInputVal + "," + stateCode +
+    ",&limit=1&appid=e54dee0cc53d0b5d7fada68322d11e01";
 
   fetch(geoURL)
     .then(function (response) {
@@ -52,7 +115,7 @@ function searchApi(searchInputVal) {
       return response.json();
     })
     .then(function (locRes) {
-      console.log(locRes[0].state);
+      console.log(locRes);
 
       var searchLoc = locRes[0];
 
@@ -154,6 +217,9 @@ function brewList(searchInputVal) {
 }
 
 function brewResults(breweryInfo) {
+  // write conditional to filter out all breweries that are not in the users desired state
+  console.log(breweryInfo[0].state)
+
   var brewContainer = document.querySelector(".brewContainer");
   brewContainer.innerHTML = "";
   // Pulling variables for 10 brewries with a for-loop.
