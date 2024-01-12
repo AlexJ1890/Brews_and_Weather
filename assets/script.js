@@ -140,7 +140,7 @@ function searchApi(searchInputVal, state) {
       return response.json();
     })
     .then(function (locRes) {
-      console.log(locRes);
+      console.log(locRes[0].state);
 
       var searchLoc = locRes[0];
 
@@ -176,7 +176,7 @@ function searchApi(searchInputVal, state) {
           console.log('State:', locRes[0].state)
 
           // Functions called to display the current weather.
-          printResults(weatherData);
+          printResults(weatherData,locRes);
         });
     })
     .catch(function (error) {
@@ -184,7 +184,7 @@ function searchApi(searchInputVal, state) {
     });
 }
 
-function printResults(weatherData) {
+function printResults(weatherData, locRes) {
   var currentContainer = document.querySelector(".currentContainer");
   currentContainer.innerHTML = "";
 
@@ -194,6 +194,8 @@ function printResults(weatherData) {
   var wind = weatherData.list[0].wind.speed;
   var name = weatherData.city.name;
   var iconCode = weatherData.list[0].weather[0].icon;
+  var stateweather = locRes[0].state;
+  console.log(locRes[0].state)
   var iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
   // Creating an element to display information.
@@ -208,7 +210,8 @@ function printResults(weatherData) {
     );
   // Organizing the card content with a variable.
   var cardContent = `
-                <h2 class="card-title text-left">${name}</h2>
+                <h2 class="card-title text-left">${name}, ${stateweather}</h2>
+
                 <img class="weatherIcon" src="${iconUrl}" alt="Weather Icon" />
                 <p class="card-text">Temp: ${temp} F</p>
                 <p class="card-text">Humidity: ${humidity}%</p>
