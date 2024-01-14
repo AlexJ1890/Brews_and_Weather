@@ -1,7 +1,22 @@
 var searchEl = document.querySelector(".btn");
 var select = document.getElementById("state");
+var currentContainer = document.querySelector(".currentContainer");
+
+const modalEl = document.getElementById('errorModal');
+const closeModalEl = document.getElementById('closeModal');
+
+function showModal() {
+  modalEl.classList.remove('hidden');
+}
+
+function hideModal() {
+  modalEl.classList.add('hidden');
+}
+
+closeModalEl.addEventListener('click', hideModal);
 
 searchEl.addEventListener("click", btn);
+
 var usStates = [
   { name: "ALABAMA", abbreviation: "AL" },
   { name: "ALASKA", abbreviation: "AK" },
@@ -152,11 +167,24 @@ function searchApi(searchInputVal, stateCode) {
           console.log("Temperature:", weatherData.list[0].main.temp);
 
           // Functions called to display the current weather.
-          printResults(weatherData, locRes);
+
+          if (!lat || !lon) {
+            showModal();
+            
+          } else {
+            printResults(weatherData, locRes);
+          }
+        })
+        .catch(function (error) {
+          console.error(error);
+          showModal(); 
+          currentContainer.innerHTML = '';
         });
     })
     .catch(function (error) {
       console.error(error);
+      showModal();
+      currentContainer.innerHTML = ''; 
     });
 }
 
