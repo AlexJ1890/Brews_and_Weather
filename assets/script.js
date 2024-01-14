@@ -3,8 +3,12 @@ var select = document.getElementById("state");
 var currentContainer = document.querySelector(".currentContainer");
 var searchInputVal = document.querySelector("#myInput").value;
 
+// Loads previous cities searched
+loadSearchHistory();
+
 const modalEl = document.getElementById('errorModal');
 const closeModalEl = document.getElementById('closeModal');
+
 
 function showModal() {
   modalEl.classList.remove('hidden');
@@ -93,9 +97,10 @@ function btn(event) {
     return;
   }
   // Runs the function to load the Search History when the page loads so the user can click one instead of typing.
-  loadSearchHistory();
+  
   searchApi(searchInputVal, select.value);
   brewList(searchInputVal);
+  loadSearchHistory();
 }
 
 // Search API with value to find Lat/Lon then finding correspinging weather
@@ -197,8 +202,9 @@ localStorage.setItem("searchInputVal", searchInputVal);
 
 var previousInputs = JSON.parse(localStorage.getItem("previousInputs")) || [];
 
+if (!previousInputs.includes(cityState)){
 previousInputs.push(cityState);
-
+}
 localStorage.setItem("previousInputs", JSON.stringify(previousInputs));
 
 if (previousInputs.length > 10) {
@@ -326,9 +332,10 @@ function loadSearchHistory() {
 
     button.addEventListener("click", function () {
       searchInputVal.innerHTML = "";
-      var clickedSearch = this.textContent;
-      searchApi(clickedSearch);
-      brewList(clickedSearch);
+      var histSearch = this.textContent;
+      console.log(histSearch)
+      searchApi(histSearch);
+      brewList(histSearch);
     });
     // Displaying each city already search as a button to click that will start the function back at the searchAPI() function.
     searchHistoryContainer.appendChild(button);
