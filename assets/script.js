@@ -281,15 +281,15 @@ function brewResults(breweryInfo) {
     var phoneNum = breweryInfo[i].phone;
     var website = breweryInfo[i].website_url;
 
-    // Organizing card content.
+    // Organizing card content. If the return in null it will not display the p tag.
     var cardContent = `
-                <h5 class="card-title font-bold text-xl mb-2"><a href="${website}"> ${name}</a></h5>
-                <p class="card-text">Address: ${address} </p>
-                <p class="card-text">City: ${citytag}</p>
-                <p class="card-text">State: ${state}</p>
-                <p class="card-text">Phone Number: ${phoneNum}</p>
-            `;
-    // Appeniding information to list ten local brewries.
+        <h5 class="card-title font-bold text-xl mb-2"><a href="${website}"> ${name}</a></h5>
+        ${address ? `<p class="card-text">Address: ${address}</p>` : ''}
+        ${citytag ? `<p class="card-text">City: ${citytag}</p>` : ''}
+        ${state ? `<p class="card-text">State: ${state}</p>` : ''}
+        ${phoneNum ? `<p class="card-text">Phone Number: ${phoneNum}</p>` : ''}
+        `;
+    // Appending information to list ten local brewries.
     card.innerHTML = cardContent;
     brewContainer.appendChild(card);
   }
