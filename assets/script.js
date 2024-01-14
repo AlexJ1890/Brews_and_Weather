@@ -1,9 +1,14 @@
 var searchEl = document.querySelector(".btn");
 var select = document.getElementById("state");
 var currentContainer = document.querySelector(".currentContainer");
+var searchInputVal = document.querySelector("#myInput").value;
+
+// Loads previous cities searched
+loadSearchHistory();
 
 const modalEl = document.getElementById('errorModal');
 const closeModalEl = document.getElementById('closeModal');
+
 
 function showModal() {
   modalEl.classList.remove('hidden');
@@ -91,24 +96,11 @@ function btn(event) {
     console.error("You need a search input value!");
     return;
   }
-
-  // Search city will be stored in the Local Storage to be displayed as a search history.
-  localStorage.setItem("searchInputVal", searchInputVal);
-
-  var previousInputs = JSON.parse(localStorage.getItem("searchInputs")) || [];
-
-  previousInputs.push(searchInputVal);
-
-  localStorage.setItem("searchInputs", JSON.stringify(previousInputs));
-
-  if (previousInputs.length > 10) {
-    previousInputs.shift();
-  }
-
   // Runs the function to load the Search History when the page loads so the user can click one instead of typing.
-  //   loadSearchHistory();
+  
   searchApi(searchInputVal, select.value);
   brewList(searchInputVal);
+  loadSearchHistory();
 }
 
 // Search API with value to find Lat/Lon then finding correspinging weather
@@ -202,6 +194,22 @@ function printResults(weatherData, locRes) {
   console.log(locRes[0].state);
   var iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
+
+  var cityState = name + ', ' + select.value;
+
+// Search city will be stored in the Local Storage to be displayed as a search history.
+localStorage.setItem("searchInputVal", searchInputVal);
+
+var previousInputs = JSON.parse(localStorage.getItem("previousInputs")) || [];
+
+if (!previousInputs.includes(cityState)){
+previousInputs.push(cityState);
+}
+localStorage.setItem("previousInputs", JSON.stringify(previousInputs));
+
+if (previousInputs.length > 10) {
+  previousInputs.shift();
+}
   // Creating an element to display information.
   var card = document.createElement("div");
   card.classList.add(
@@ -281,16 +289,65 @@ function brewResults(breweryInfo) {
     var phoneNum = breweryInfo[i].phone;
     var website = breweryInfo[i].website_url;
 
-    // Organizing card content.
+    // Organizing card content. If the return in null it will not display the p tag.
     var cardContent = `
-                <h5 class="card-title font-bold text-xl mb-2"><a href="${website}"> ${name}</a></h5>
-                <p class="card-text">Address: ${address} </p>
-                <p class="card-text">City: ${citytag}</p>
-                <p class="card-text">State: ${state}</p>
-                <p class="card-text">Phone Number: ${phoneNum}</p>
-            `;
-    // Appeniding information to list ten local brewries.
+        <h5 class="card-title font-bold text-xl mb-2"><a href="${website}"> ${name}</a></h5>
+        ${address ? `<p class="card-text">Address: ${address}</p>` : ''}
+        ${citytag ? `<p class="card-text">City: ${citytag}</p>` : ''}
+        ${state ? `<p class="card-text">State: ${state}</p>` : ''}
+        ${phoneNum ? `<p class="card-text">Phone Number: ${phoneNum}</p>` : ''}
+        `;
+    // Appending information to list ten local brewries.
     card.innerHTML = cardContent;
     brewContainer.appendChild(card);
   }
+}
+
+function loadSearchHistory() {
+  var searchHistoryContainer = document.querySelector(".searchHistory");
+  searchHistoryContainer.innerHTML = "";
+  searchHistoryContainer.classList.add(
+    "card",
+    "p-4",
+    "rounded",
+    "overflow-hidden",
+    "shadow-lg",
+    "w-1/2"
+  );
+
+  var recentSearches = JSON.parse(localStorage.getItem("previousInputs")) || [];
+
+  for (var i = 0; i < recentSearches.length; i++) {
+    var button = document.createElement("button");
+
+    button.textContent = recentSearches[i];
+
+    button.classList.add(
+    "p-4",
+    "rounded",
+    "overflow-hidden",
+    "shadow-lg",
+    "w-1/2"
+    );
+
+    button.addEventListener("click", function () {
+      searchInputVal.innerHTML = "";
+      var histSearch = this.textContent;
+      console.log(histSearch)
+      searchApi(histSearch);
+      brewList(histSearch);
+    });
+    // Displaying each city already search as a button to click that will start the function back at the searchAPI() function.
+    searchHistoryContainer.appendChild(button);
+  }
+}
+
+var clearBtn = document.querySelector(".clear");
+var searchList = document.querySelector(".searchHistory");
+clearBtn.addEventListener("click", function clearLocalStorage() {
+  localStorage.clear();
+  clearList();
+});
+function clearList() {
+  searchList.innerHTML = "";
 }
