@@ -142,8 +142,6 @@ function searchApi(searchInputVal, stateCode) {
         lon +
         "&units=imperial&appid=e54dee0cc53d0b5d7fada68322d11e01";
 
-      console.log(tempURL);
-
       fetch(tempURL)
         .then(function (response) {
           if (!response.ok) {
@@ -240,8 +238,6 @@ function brewList(searchInputVal) {
     return state.abbreviation === selectedStateAbbrev;
   });
 
-  console.log(selectedState.name);
-
   var brewURL = "https://api.openbrewerydb.org/v1/breweries";
   brewURL =
     brewURL +
@@ -331,11 +327,22 @@ function loadSearchHistory() {
     );
 
     button.addEventListener("click", function () {
-      searchInputVal.innerHTML = "";
+      document.querySelector("#myInput").value = "";
       var histSearch = this.textContent;
       console.log(histSearch)
       searchApi(histSearch);
-      brewList(histSearch);
+
+      
+      var histSearch = histSearch.split(', ');
+    var city = histSearch[0];
+    var stateLetters = histSearch[1];
+
+    console.log(city)
+    console.log(stateLetters)
+
+      brewList(city, stateLetters);
+
+      
     });
     // Displaying each city already search as a button to click that will start the function back at the searchAPI() function.
     searchHistoryContainer.appendChild(button);
