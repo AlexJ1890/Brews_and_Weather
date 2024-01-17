@@ -1,0 +1,21 @@
+:root{
+    --jet: #312f2f;
+    --Uranian: #a6d9f7;
+    --Dull: #bccce0;
+    --Rosy: #bf98A0;
+    --navy: #1d3461; 
+    --mint: #09BC8A;
+    --soft: #D3D3D3;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+h1,
+h2 {
+    font-size: 25px;
+}
+

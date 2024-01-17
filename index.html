@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
+  <link rel="stylesheet" href="./assets/style.css"/>
 </head>
 
 <body>
@@ -50,7 +50,7 @@
   </form>
 
   <div class="card">
-    <div>
+    <div class = weatherCard>
       <h2 class="weatherHeader">Current Weather</h2>
       <div class="currentContainer p-4 text-center"></div>
     </div>
@@ -73,18 +73,7 @@
   <!-- Flowbite JavaScript file -->
   <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
   <script src="./assets/script.js"></script>
-  <!-- Your own JavaScript to toggle the modal -->
-  <script>
-    function toggleModal() {
-      var modal = document.getElementById("default-modal");
-      modal.classList.toggle("hidden");
-    }
-
-    // Ensure Flowbite modal functionality
-    // document.addEventListener('DOMContentLoaded', function () {
-    //   new bootstrap.Modal(document.getElementById('default-modal'));
-    // });
-  </script>
+  
 </body>
 
 </html>
