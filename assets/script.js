@@ -228,9 +228,9 @@ if (previousInputs.length > 10) {
                 <h2 class="card-title text-left">${name}, ${stateweather}</h2>
 
                 <img class="weatherIcon" src="${iconUrl}" alt="Weather Icon" />
-                <p class="card-text">Temp: ${temp} F</p>
-                <p class="card-text">Humidity: ${humidity}%</p>
-                <p class="card-text">Wind: ${wind}</p>
+                <p class="card-text"><i class="fa-solid fa-temperature-three-quarters"></i> ${temp} F</p>
+                <p class="card-text"><i class="fa-solid fa-droplet"></i> ${humidity}%</p>
+                <p class="card-text"><i class="fa-solid fa-wind"></i> ${wind}</p>
             `;
   // Appending information to the Card.
   card.innerHTML = cardContent;
@@ -290,11 +290,11 @@ function brewResults(breweryInfo) {
 
     // Organizing card content. If the return in null it will not display the p tag.
     var cardContent = `
-        <h5 class="card-title font-bold text-xl mb-2"><a href="${website}" target="_blank"> ${name}</a></h5>
-        ${address ? `<p class="card-text">Address: ${address}</p>` : ''}
-        ${citytag ? `<p class="card-text">City: ${citytag}</p>` : ''}
-        ${state ? `<p class="card-text">State: ${state}</p>` : ''}
-        ${phoneNum ? `<p class="card-text">Phone Number: ${phoneNum}</p>` : ''}
+        <h5 class="card-title font-bold text-xl mb-2"><a href="${website}" target="_blank"><i class="fa-solid fa-beer-mug-empty"></i> ${name}</a></h5>
+
+        ${address ? `<p class="card-text"><i class="fa-solid fa-location-dot"></i> ${address}</p>` : ''}
+        ${citytag ? `<p class="card-text"><i class="fa-solid fa-city"></i></i> ${citytag}, ${state}</p>` : ''}
+        ${phoneNum ? `<p class="card-text"><i class="fa-solid fa-phone"></i> ${phoneNum}</p>` : ''}
         `;
     // Appending information to list ten local brewries.
     card.innerHTML = cardContent;
