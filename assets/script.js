@@ -306,27 +306,25 @@ function loadSearchHistory() {
   var searchHistoryContainer = document.querySelector(".searchHistory");
   searchHistoryContainer.innerHTML = "";
   searchHistoryContainer.classList.add(
-    "card",
-    "p-4",
+    "p-2",
     "rounded",
-    "overflow-hidden",
-    "shadow-lg",
-    "w-1/2"
-  );
+    "w-25"
+    );
 
   var recentSearches = JSON.parse(localStorage.getItem("previousInputs")) || [];
-
-  for (var i = 0; i < recentSearches.length; i++) {
+  var displayedSearches = recentSearches.slice(-4);
+  for (var i = 0; i < displayedSearches.length; i++) {
     var button = document.createElement("button");
 
-    button.textContent = recentSearches[i];
+    button.textContent = displayedSearches[i];
 
     button.classList.add(
-    "p-4",
+    "p-2",
+    "block",
     "rounded",
     "overflow-hidden",
     "shadow-lg",
-    "w-1/2"
+    "w-25"
     );
 
     button.addEventListener("click", function () {
