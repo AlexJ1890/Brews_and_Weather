@@ -228,9 +228,9 @@ if (previousInputs.length > 10) {
                 <h2 class="card-title text-left">${name}, ${stateweather}</h2>
 
                 <img class="weatherIcon" src="${iconUrl}" alt="Weather Icon" />
-                <p class="card-text">Temp: ${temp} F</p>
-                <p class="card-text">Humidity: ${humidity}%</p>
-                <p class="card-text">Wind: ${wind}</p>
+                <p class="card-text"><i class="fa-solid fa-temperature-three-quarters"></i> ${temp} F</p>
+                <p class="card-text"><i class="fa-solid fa-droplet"></i> ${humidity}%</p>
+                <p class="card-text"><i class="fa-solid fa-wind"></i> ${wind}</p>
             `;
   // Appending information to the Card.
   card.innerHTML = cardContent;
