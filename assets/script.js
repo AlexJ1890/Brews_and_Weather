@@ -98,8 +98,13 @@ function btn(event) {
   }
   // Runs the function to load the Search History when the page loads so the user can click one instead of typing.
   
+  var selectedStateAbbrev = document.getElementById("state").value;
+  var selectedState = usStates.find(function (state) {
+    return state.abbreviation === selectedStateAbbrev;
+  });
+  var stateName = selectedState.name
   searchApi(searchInputVal, select.value);
-  brewList(searchInputVal);
+  brewList(searchInputVal, stateName);
   loadSearchHistory();
 }
 
@@ -232,11 +237,9 @@ if (previousInputs.length > 10) {
   currentContainer.appendChild(card);
 }
 
-function brewList(searchInputVal) {
-  var selectedStateAbbrev = document.getElementById("state").value;
-  var selectedState = usStates.find(function (state) {
-    return state.abbreviation === selectedStateAbbrev;
-  });
+function brewList(searchInputVal, stateName) {
+  
+  
 
   var brewURL = "https://api.openbrewerydb.org/v1/breweries";
   brewURL =
@@ -244,7 +247,7 @@ function brewList(searchInputVal) {
     "?by_city=" +
     searchInputVal +
     "&by_state=" +
-    selectedState.name +
+    stateName +
     "&per_page=100";
 
   fetch(brewURL)
@@ -330,17 +333,26 @@ function loadSearchHistory() {
       document.querySelector("#myInput").value = "";
       var histSearch = this.textContent;
       console.log(histSearch)
-      searchApi(histSearch);
+      
 
       
       var histSearch = histSearch.split(', ');
     var city = histSearch[0];
     var stateLetters = histSearch[1];
 
+    searchApi(city, stateLetters);
+  
+    var fullState = usStates.find(function (state){
+      if (state.abbreviation == stateLetters) {
+        return state.name
+      }
+    })
+
     console.log(city)
     console.log(stateLetters)
+    console.log(fullState.name)
 
-      brewList(city, stateLetters);
+      brewList(city, fullState.name);
 
       
     });
