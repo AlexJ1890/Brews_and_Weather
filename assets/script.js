@@ -291,7 +291,7 @@ function brewResults(breweryInfo) {
 
     // Organizing card content. If the return in null it will not display the p tag.
     var cardContent = `
-        <h5 class="card-title font-bold text-xl text-decoration-line: underline mb-2"><a href="${website}" target="_blank"><i class="fa-solid fa-beer-mug-empty"></i> ${name}</a></h5>
+        <h5 class="card-title font-bold text-xl no-underline hover:underline mb-2"><a href="${website}" target="_blank"><i class="fa-solid fa-beer-mug-empty"></i> ${name}</a></h5>
 
         ${address ? `<p class="card-text"><i class="fa-solid fa-location-dot"></i> ${address}</p>` : ''}
         ${citytag ? `<p class="card-text"><i class="fa-solid fa-city"></i></i> ${citytag}, ${state}</p>` : ''}
