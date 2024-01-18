@@ -219,14 +219,13 @@ if (previousInputs.length > 10) {
     "card",
     "p-4",
     "rounded",
-    "overflow-hidden",
     "shadow-lg",
-    "w-1/2"
+    // "w-1/2",
+    "auto-cols-auto",
   );
   // Organizing the card content with a variable.
   var cardContent = `
                 <h2 class="card-title text-left">${name}, ${stateweather}</h2>
-
                 <img class="weatherIcon" src="${iconUrl}" alt="Weather Icon" />
                 <p class="card-text"><i class="fa-solid fa-temperature-three-quarters"></i> ${temp} F</p>
                 <p class="card-text"><i class="fa-solid fa-droplet"></i> ${humidity}%</p>
@@ -293,9 +292,9 @@ function brewResults(breweryInfo) {
     var cardContent = `
         <h5 class="card-title font-bold text-xl no-underline hover:underline mb-2"><a href="${website}" target="_blank"><i class="fa-solid fa-beer-mug-empty"></i> ${name}</a></h5>
 
-        ${address ? `<p class="card-text"><i class="fa-solid fa-location-dot"></i> ${address}</p>` : ''}
-        ${citytag ? `<p class="card-text"><i class="fa-solid fa-city"></i></i> ${citytag}, ${state}</p>` : ''}
-        ${phoneNum ? `<p class="card-text"><i class="fa-solid fa-phone"></i> ${phoneNum}</p>` : ''}
+        ${address ? `<p class="card-text"> <i class="fa-solid fa-location-dot"></i> ${address}</p>` : ''}
+        ${citytag ? `<p class="card-text"> <i class="fa-solid fa-city"></i></i> ${citytag}, ${state}</p>` : ''}
+        ${phoneNum ? `<p class="card-text"> <i class="fa-solid fa-phone"></i> ${phoneNum}</p>` : ''}
         `;
     // Appending information to list ten local brewries.
     card.innerHTML = cardContent;
@@ -307,10 +306,14 @@ function loadSearchHistory() {
   var searchHistoryContainer = document.querySelector(".searchHistory");
   searchHistoryContainer.innerHTML = "";
   searchHistoryContainer.classList.add(
-    "p-2",
-    "rounded",
-    "w-25"
+      "card",
+      "p-4",
+      "rounded",
+      "shadow-lg",
+      // "w-1/2",
+      "auto-cols-auto",
     );
+    
 
   var recentSearches = JSON.parse(localStorage.getItem("previousInputs")) || [];
   var displayedSearches = recentSearches.slice(-4);
