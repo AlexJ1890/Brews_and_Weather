@@ -278,7 +278,8 @@ function brewResults(breweryInfo) {
       "w-2/6",
       "rounded",
       "overflow-hidden",
-      "shadow-lg"
+      "shadow-lg",
+      "hover:bg-blue-200"
     );
     // Variables displaying in the days from the API.
     var name = breweryInfo[i].name;
@@ -290,7 +291,7 @@ function brewResults(breweryInfo) {
 
     // Organizing card content. If the return in null it will not display the p tag.
     var cardContent = `
-        <h5 class="card-title font-bold text-xl mb-2"><a href="${website}" target="_blank"><i class="fa-solid fa-beer-mug-empty"></i> ${name}</a></h5>
+        <h5 class="card-title font-bold text-xl text-decoration-line: underline mb-2"><a href="${website}" target="_blank"><i class="fa-solid fa-beer-mug-empty"></i> ${name}</a></h5>
 
         ${address ? `<p class="card-text"><i class="fa-solid fa-location-dot"></i> ${address}</p>` : ''}
         ${citytag ? `<p class="card-text"><i class="fa-solid fa-city"></i></i> ${citytag}, ${state}</p>` : ''}
@@ -324,7 +325,8 @@ function loadSearchHistory() {
     "rounded",
     "overflow-hidden",
     "shadow-lg",
-    "w-25"
+    "w-25",
+    "hover:bg-blue-200"
     );
 
     button.addEventListener("click", function () {
