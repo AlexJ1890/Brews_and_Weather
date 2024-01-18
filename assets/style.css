@@ -19,3 +19,10 @@ h2 {
     font-size: 25px;
 }
 
+
+.midRow{
+    display:flex;
+    flex-wrap: wrap;
+    min-width: fit-content;
+    min-height: fit-content;
+}
